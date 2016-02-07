@@ -33,3 +33,6 @@ orientation(P,Or,R) :- Or > 0, rotatePiece(P,Or,R).
 
 compatible_corner([_,[[P1C|_]|_]], 0, [_,[[P2C|_]|_]], 0, [_,[[P3C|_]|_]], 0) :-
   ((P1C, P1CB = true);(\+P1C, P1CB = false)), xor(P1CB,xor(P2C,P3C)), \+ (P1C = 1,P2C = 1 ,P3C = 1).
+
+compatible([_,[P1S|_]],0,[_,[P2S|_]],0) :- reverse(P2S,P2SR), xorlist(P1S,P2SR).
+compatible(P1,Side1,P2,Side2) :- \+ (Side1 < 0), \+ (Side2 < 0), orientation(P2,Side2,RotatedP2), orientation(P1,Side1,RotatedP1), compatible(RotatedP1,0,RotatedP2,0).
